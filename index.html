@@ -1,14 +1,63 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Train Schedule</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- css reset sheet -->
+    <link rel="stylesheet" type="text/css" media="screen" href="./assets/CSS/reset.css" />
+
+    <!-- BootStrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- css style sheet -->
     <link rel="stylesheet" type="text/css" media="screen" href="./assets/CSS/style.css" />
-    <script src="./assets/scripts/app.js"></script>
+
+    <!-- Added Moment JS -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
+
 <body>
-    
+    <div class="container">
+        <div class="jumbotron"></div>
+        <div>
+            <table id="train-table">
+                <tr>
+                    <th id="train-display">Name</th>
+                    <th id="destination-display">Destination</th>
+                    <th id="trainStart">Start Time</th>
+                    <th id="arrival-display">Arrival Time</th>
+                    <th id="frequency">frequency</th>t
+                </tr>
+            </table>
+        </div>
+        </br>
+        <div>
+            <form>
+                <label for="train">Train</label>
+                <input name="train" id="train-input" type="text">
+                <label for="destination">Destination</label>
+                <input name="destination" id="destin-input" type="text">
+                <label for="frequency">Frequency</label>
+                <input name="frequency" id="freq-input" type="text">
+                <label for="first-arrive">First Train</label>
+                <input name="first-arrive" id="first-arrive" type="text">
+                <input type="submit" id="sendit" value="Submit" value="submit">
+            </form>
+        </div>
+
+    </div>
+    <!--End continer-->
+    <!--FireBase-->
+    <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+    <script src="./assets/scripts/app.js"></script>
+    <!--jQuery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
 </body>
+
 </html>
