@@ -15,29 +15,9 @@ var database = firebase.database();
 var trainName = $("#train-input")
   .val()
   .trim();
-var destination = $("#destin-input")
-  .val()
-  .trim();
-
-// var currentTime = "CURRENT TIME: " + moment(currentTime).format("hh:mm");
-// console.log(currentTime);
-
-// var connectionsRef = database.ref("/connections");
-// var connectedRef = database.ref(".info/connected");
-
-// connectedRef.on("value", function(snap) {
-//   // If they are connected..
-//   if (snap.val()) {
-//     // Add user to the connections list.
-//     var con = connectionsRef.push(true);
-//     // Remove user from the connection list when they disconnect.
-//     con.onDisconnect().remove();
-//   }
-// });
-// console.log("we are connected!");
-// console.log(m);
-
-// Uploads train data to the database
+//var destination = $("#destin-input")
+// .val()
+// .trim();
 
 // Capture Button Click
 $("#sendit").on("click", function(event) {
@@ -47,18 +27,17 @@ $("#sendit").on("click", function(event) {
   var trainName = $("#train-input")
     .val()
     .trim();
-  // destination = frequency = $("#freq-input")
+  var tFrequency = $("#freq-input");
   //   .val()
   //   .trim();
-  // arrival = $("#arrival-input")
+  var tMinutesTillTrain = $("#arrival-input");
   //   .val()
   //   .trim();
 
   var newTrain = {
     trainName: trainName,
-    destination: destination,
-    frequency: frequency
-    //arrival: arrival
+    tFrequency: tFrequency,
+    tMinutesTillTrain: tMinutesTillTrain
   };
   // Code for the push
   database.ref().push(newTrain);
@@ -78,11 +57,10 @@ database.ref().on(
     var trainName = childSnapshot.val().trainName;
 
     var newRow = $("<tr>").append(
-      $("<td>").text(trainName)
-      // $("<td>").text(destination),
-      // $("<td>").text(starttime),
-      // $("<td>").text(frequency),
-      // $("<td>").text(arrival),
+      $("<td>").text(trainName),
+      $("<td>").text(firstTrain),
+      $("<td>").text(tFrequency),
+      $("<td>").text(tMinutesTillTrain)
     );
     $("#train-table > tbody").append(newRow);
   }, //end  function
@@ -90,31 +68,37 @@ database.ref().on(
     console.log("The read failed: " + errorObject.code);
   }
 );
+var tFrequency = 15;
+
+// Time is 3:30 AM
+var firstTrain = "03:30";
+
+// First Time (pushed back 1 year to make sure it comes before current time)
+var firstTrainConverted = moment(firstTrain, "HH:mm");
+// .subtract(1, "years");
+console.log(firstTrainConverted);
+
+// Current Time
 var currentTime = moment();
-var arrival = moment().diff(moment(trainStart), "minutes");
-//var frequency = moment(arrival).subtract(15, "minuties");
-var trainStart = "04:00";
-var frequency = 15;
+console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
 
-// // Difference between the times
-// var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
-// console.log("DIFFERENCE IN TIME: " + diffTime);
+// Difference between the times
+var diffTime = moment().diff(moment(firstTrainConverted), "minutes");
+console.log("DIFFERENCE IN TIME: " + diffTime);
 
-// // Time apart (remainder)
-// var tRemainder = diffTime % tFrequency;
-// console.log(tRemainder);
+// Time apart (remainder)
+var tRemainder = diffTime % tFrequency;
+console.log(tRemainder);
 
-// // Minute Until Train
-// var tMinutesTillTrain = tFrequency - tRemainder;
-// console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+// Minute Until Train
+var tMinutesTillTrain = tFrequency - tRemainder;
+console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
 
-// // Next Train
-// var nextTrain = moment().add(tMinutesTillTrain, "minutes");
-// console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+// Next Train
+var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
 
-/*Make sure that your app suits this basic spec:
-  
-* When adding trains, administrators should be able to submit the following:
+/* When adding trains, administrators should be able to submit the following:
   
   * First Train Time -- in military time
   
