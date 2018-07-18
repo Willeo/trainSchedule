@@ -18,26 +18,24 @@ var trainName = $("#train-input")
 var destination = $("#destin-input")
   .val()
   .trim();
-//var arrival = moment().minutes().format("hh:mm");
-//var frequency = moment(arrival).subtract(15, "minuties");
-var trainStart = moment("04/05/1989", "MM/DD/YYYY").format("HH");
 
-var currentTime = "CURRENT TIME: " + moment(currentTime).format("hh:mm");
-console.log(currentTime);
+// var currentTime = "CURRENT TIME: " + moment(currentTime).format("hh:mm");
+// console.log(currentTime);
 
-var connectionsRef = database.ref("/connections");
-var connectedRef = database.ref(".info/connected");
+// var connectionsRef = database.ref("/connections");
+// var connectedRef = database.ref(".info/connected");
 
-connectedRef.on("value", function(snap) {
-  // If they are connected..
-  if (snap.val()) {
-    // Add user to the connections list.
-    var con = connectionsRef.push(true);
-    // Remove user from the connection list when they disconnect.
-    con.onDisconnect().remove();
-  }
-});
-console.log("we are connected!");
+// connectedRef.on("value", function(snap) {
+//   // If they are connected..
+//   if (snap.val()) {
+//     // Add user to the connections list.
+//     var con = connectionsRef.push(true);
+//     // Remove user from the connection list when they disconnect.
+//     con.onDisconnect().remove();
+//   }
+// });
+// console.log("we are connected!");
+// console.log(m);
 
 // Uploads train data to the database
 
@@ -81,11 +79,10 @@ database.ref().on(
 
     var newRow = $("<tr>").append(
       $("<td>").text(trainName)
-      // $("<td>").text(empRole),
-      // $("<td>").text(empStartPretty),
-      // $("<td>").text(empMonths),
-      // $("<td>").text(empRate),
-      // $("<td>").text(empBilled)
+      // $("<td>").text(destination),
+      // $("<td>").text(starttime),
+      // $("<td>").text(frequency),
+      // $("<td>").text(arrival),
     );
     $("#train-table > tbody").append(newRow);
   }, //end  function
@@ -93,10 +90,11 @@ database.ref().on(
     console.log("The read failed: " + errorObject.code);
   }
 );
-
-// // Current Time
-// var currentTime = moment();
-// console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+var currentTime = moment();
+var arrival = moment().diff(moment(trainStart), "minutes");
+//var frequency = moment(arrival).subtract(15, "minuties");
+var trainStart = "04:00";
+var frequency = 15;
 
 // // Difference between the times
 // var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
