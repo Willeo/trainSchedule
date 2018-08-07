@@ -1,10 +1,28 @@
 body {
-  margin: 0 auto;
+  padding: 14px;
+  text-align: center;
+  background-image: URL("https://wallpapercave.com/wp/wp1970596.jpg");
+}
+
+table {
+  width: 100%;
+
+  margin: 20px auto;
+
+  table-layout: auto;
+
+  padding: 50px 10px;
 }
 
 table,
+td,
+th {
+  border-collapse: collapse;
+}
+
 th,
 td {
-  border: 1px solid black;
-  padding: 15px;
+  border: solid 1px;
+
+  text-align: center !important;
 }
